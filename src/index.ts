@@ -16,8 +16,6 @@ const generateMessage = (projects: Project[]): string => {
   return messageList.join('\n\n')
 }
 
-console.log('hello world')
-
 const main = async () => {
   const allProjects = await getProjects()
 
@@ -53,7 +51,7 @@ const main = async () => {
     const message = generateMessage(projectsToMessage)
     console.log(`message: ${message}`)
 
-    // sendEmail('New NYCares Opportunity!', message)
+    sendEmail('New NYCares Opportunity!', message)
   }
 }
 
