@@ -55,7 +55,7 @@ const main = async () => {
   }
 }
 
-main().catch((error) => console.log(error))
+main().catch((error) => console.log('error -- ' + error))
 
 export const handler: Handler = async (event: any, context: any) => {
   console.log('EVENT: \n' + JSON.stringify(event, null, 2))
