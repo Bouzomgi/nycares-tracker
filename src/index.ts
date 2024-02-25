@@ -51,7 +51,7 @@ const main = async () => {
     const message = generateMessage(projectsToMessage)
     console.log(`message: ${message}`)
 
-    sendEmail('New NYCares Opportunity!', message)
+    await sendEmail('New NYCares Opportunity!', message)
   }
 }
 
