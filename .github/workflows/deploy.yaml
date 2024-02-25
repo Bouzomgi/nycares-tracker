@@ -36,4 +36,4 @@ jobs:
         run: |
           aws lambda update-function-code \
             --function-name nycares-tracker \
-            --zip-file dist/index.js
+            --zip-file fileb://dist/index.js
