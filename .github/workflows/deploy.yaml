@@ -17,7 +17,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.13.x
+          node-version: 21.6.x
           cache: npm
 
       - name: Install Dependencies
@@ -33,6 +33,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy to Lambda
-        run: aws lambda update-function-code \
-          --function-name nycares-tracker \
-          --zip-file dist/index.js
+        run: |
+          aws lambda update-function-code \
+            --function-name nycares-tracker \
+            --zip-file dist/index.js
