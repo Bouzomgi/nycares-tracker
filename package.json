@@ -1,0 +1,31 @@
+{
+  "name": "nycares-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx tsc; node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "rm -rf dist",
+    "build": "esbuild index.ts --bundle --minify --sourcemap --platform=node --target=es2020 --outfile=dist/index.js",
+    "postbuild": "cd dist && zip -r index.zip index.js*"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.134",
+    "@types/node": "^20.11.20",
+    "esbuild": "^0.20.1",
+    "prettier": "3.2.5",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.521.0",
+    "@aws-sdk/client-ses": "^3.521.0",
+    "@aws-sdk/lib-dynamodb": "^3.521.0",
+    "aws-lambda": "^1.0.7",
+    "dayjs": "^1.11.10",
+    "dotenv": "^16.4.5",
+    "envalid": "^8.0.0"
+  }
+}
