@@ -1,41 +1,11 @@
-import { Project, getProjects } from './getProjects'
-import sendEmail from './sendEmail'
-import {
-  DbProject,
-  addProject,
-  getSeenProjects,
-  updateProjectTimestamp,
-} from './databaseOps'
-import unwantedProjects from './unwantedProjects'
-import dayjs from 'dayjs'
 import { Handler } from 'aws-lambda'
 
-const NYCARESAPIURL =
-  'https://www.newyorkcares.org/api/search/1/?boroughs%5B%5D=Manhattan&days%5B%5D=Sunday&html=true&variant=full'
-
-// If any projects have been seen within the last day, ignore them.
-// Otherwise, update the seenTimestamp
-const updateSeenProjects = (seenProjects: DbProject[]): Project[] => {
-  const currentDay = dayjs()
-
-  const updatedProjects: Project[] = seenProjects.flatMap((project) => {
-    const projectDay = dayjs(project.seenTimestamp)
-    const diffInMinutes = Math.abs(projectDay.diff(currentDay, 'minute'))
-
-    // 23 hours and 57 minutes
-    if (diffInMinutes >= 23 * 60 + 57) {
-      updateProjectTimestamp(project).catch((error) => {
-        console.log(`Error with updating seenTimestamp -- ${error}`)
-      })
-      return [project as Project]
-    }
-    return []
-  })
-
-  console.log(`updatedProjects: ${updatedProjects}`)
-
-  return updatedProjects
-}
+import { getProjects } from './getProjects'
+import { Project } from './models/Project'
+import { addProject, getSeenProjects } from './databaseOps'
+import unwantedProjects from './unwantedProjects'
+import updateSeenProjects from './updateSeenProjects'
+import sendEmail from './sendEmail'
 
 // Generate a clean email message for the projects
 const generateMessage = (projects: Project[]): string => {
@@ -45,6 +15,8 @@ const generateMessage = (projects: Project[]): string => {
 
   return messageList.join('\n\n')
 }
+
+console.log('hello world')
 
 const main = async () => {
   const allProjects = await getProjects()

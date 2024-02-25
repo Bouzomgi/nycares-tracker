@@ -9,12 +9,10 @@ import {
   PutCommand,
   UpdateCommand,
 } from '@aws-sdk/lib-dynamodb'
-import { Project } from './getProjects'
+import { Project, DbProject } from './models/Project'
 
 const client = new DynamoDBClient({})
 const docClient = DynamoDBDocumentClient.from(client)
-
-export type DbProject = Project & { seenTimestamp: string }
 
 // Get all seen projects from Dynamo Table
 export const getSeenProjects = async (

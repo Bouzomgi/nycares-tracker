@@ -1,17 +1,10 @@
 import crypto from 'crypto'
 import dayjs from 'dayjs'
+import { Project } from './models/Project'
 
 const NYCARESAPIURL =
   'https://www.newyorkcares.org/api/search/?boroughs%5B%5D=Manhattan&days%5B%5D=Saturday&days%5B%5D=Sunday&variant=full'
 const NYCARESURL = 'https://www.newyorkcares.org'
-
-export type Project = {
-  title: string
-  location: string
-  date: string
-  link: string
-  id: string
-}
 
 function hashString(input: string) {
   const hash = crypto.createHash('sha256')

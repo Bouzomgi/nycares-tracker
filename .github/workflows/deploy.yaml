@@ -1,0 +1,38 @@
+name: Deploy
+on:
+  workflow_dispatch:
+  push:
+    branches: main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.x
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.GHA_DEPLOYMENT_ROLE }}
+          aws-region: us-east-1
+
+      - name: Deploy to Lambda
+        run: aws lambda update-function-code \
+          --function-name nycares-tracker \
+          --zip-file dist/index.js
