@@ -7,7 +7,7 @@ const createSendEmailCommand = (subject: string, message: string) => {
   return new SendEmailCommand({
     Destination: {
       CcAddresses: [],
-      ToAddresses: [env.TO_EMAIL],
+      ToAddresses: env.TO_EMAIL.split(','),
     },
     Message: {
       Body: {
