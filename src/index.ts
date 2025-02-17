@@ -19,17 +19,28 @@ const generateMessage = (projects: Project[]): string => {
 const main = async () => {
   const allProjects = await getProjects()
 
-  console.log(`allProjects: ${allProjects}`)
+  console.log(
+    'allProjects:',
+    allProjects.map((project) => project.title)
+  )
 
   const wantedProjects = allProjects.filter((project) => {
     return !unwantedProjects.titles.includes(project.title)
   })
-  console.log(`wantedProjects: ${wantedProjects}`)
+
+  console.log(
+    'wantedProjects:',
+    wantedProjects.map((project) => project.title)
+  )
 
   if (wantedProjects.length == 0) return
 
   const seenProjects = await getSeenProjects(wantedProjects)
-  console.log(`seenProjects: ${seenProjects}`)
+
+  console.log(
+    'seenProjects:',
+    seenProjects.map((project) => project.title)
+  )
 
   const updatedProjects = await updateSeenProjects(seenProjects)
   const seenProjectIds = seenProjects.map((project) => project.id)

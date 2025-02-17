@@ -26,7 +26,12 @@ export const getProjects = async (): Promise<Project[]> => {
   const res = await fetch(NYCARESAPIURL)
   const rb = await res.json()
 
-  const projects = rb[0]['data'].map((projectJson: any) => {
+  const projects = rb[0]['data']
+  const openProjects = projects.filter(
+    (projectJson: any) => projectJson['Full_Capacity_Boolean__c'] == false
+  )
+
+  const simplifiedProjects = openProjects.map((projectJson: any) => {
     const startStop = [
       projectJson['Activity_Start_Time__c'],
       projectJson['Activity_End_Time__c'],
@@ -47,5 +52,5 @@ export const getProjects = async (): Promise<Project[]> => {
     }
   })
 
-  return projects
+  return simplifiedProjects
 }

@@ -2,8 +2,7 @@
 
 I like volunteering. What I don't like is having to constantly check NYCares' website for available projects so I can register before they fill up.
 
-This application checks for open weekend projects in Manhattan and sends me a nicely formatted email
-with project names, locations, and signup links for any projects I haven't seen in the last 24 hours.
+This application checks for open weekend projects in Manhattan and sends me a nicely formatted email with project names, locations, and signup links for any projects I haven't seen in the last 24 hours.
 
 Additionally, I have a filter that removes certain projects I am not interested in seeing.
 
